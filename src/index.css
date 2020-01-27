@@ -7,3 +7,15 @@ body{
     background: -webkit-linear-gradient(to right, #191654, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #43C6AC, #191654); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
 }
+hr{
+    margin: 1.5rem 0 1.3rem;
+}
+div.col-6{
+    padding: 0;
+}
+@media only screen and (min-width: 589px){
+/* Móviles en vertical */
+    div.col-6:first-child{
+        padding: 0 2rem 0 0;
+    }
+}
