@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import PropTypes from 'prop-types';
 import MensajeError from './MensajeError';
 
 const Presupuesto = ({guardarPresupuesto, guardarRestante, actualizarPregunta}) => {
@@ -57,5 +58,12 @@ const Presupuesto = ({guardarPresupuesto, guardarRestante, actualizarPregunta}) 
     </Fragment>
   );
 };
+
+
+Presupuesto.propTypes = {
+  guardarPresupuesto: PropTypes.func.isRequired,
+  guardarRestante: PropTypes.func.isRequired,
+  actualizarPregunta: PropTypes.func.isRequired,
+}
 
 export default Presupuesto

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Presupuestro from './components/Presupuesto'
 import Formulario from './components/Formulario';
 import Listado from './components/Listado'
+import ControlPresupuesto from './components/ControlPresupuesto'
 
 
 function App() {
@@ -12,15 +13,30 @@ function App() {
   const [presupuesto, guardarPresupuesto] = useState(0);
   const [restante, guardarRestante] = useState(0);
   const [mostrarinicial, actualizarPregunta] = useState(true);
-  const [gastos, guardarGasto] = useState([]);
+  const [gastos, guardarGastos] = useState([]);
+  const [gasto, guardarGasto] = useState({});
+  const [creargasto, guardarCrearGasto] = useState(false);
 
-  // Cuando agreguemos un gasto
-  const agregarNuevoGasto = gasto => {
-    guardarGasto([
-      ...gastos,
-      gasto
-    ])
-  }
+  // useEffect que actualiza el restante
+  useEffect(() => {
+    if (creargasto) {
+
+      // Agregar el nuevo gasto
+      guardarGastos([
+        ...gastos,
+        gasto
+      ]);
+
+      // Restar del presupuesto los gastos
+      const presupuestoRestante = restante - gasto.cantidad
+      guardarRestante(presupuestoRestante);
+
+      // Resetear a false
+      guardarCrearGasto(false)  
+    }
+    
+
+  }, [gasto, gastos, restante]);
 
   return (
     <div className="container">
@@ -29,7 +45,7 @@ function App() {
         &nbsp;PRESUPUESTA.me
       </h1>
       <div className="vm-4">
-        <div className="card">
+        <div className="card box-shadow-lg">
           <div className="card-body">
 
              
@@ -46,11 +62,19 @@ function App() {
               <div className="col-row">
                 <div className="col-6">
                   <Formulario 
-                    agregarNuevoGasto={agregarNuevoGasto}
+                    guardarGasto={guardarGasto}
+                    guardarCrearGasto={guardarCrearGasto}
                   />
                 </div>
                 <div className="col-6">
                   <h3>Lista de gastos</h3>
+                  <hr />
+
+                  <ControlPresupuesto 
+                    presupuesto={presupuesto}
+                    restante={restante}
+                  />
+
                   <hr />
                   <Listado 
                     gastos={gastos}

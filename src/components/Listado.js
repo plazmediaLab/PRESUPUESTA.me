@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import Gasto from './Gasto';
 
 
 const Listado = ({ gastos }) => (
-    <div>
+    <Fragment>
       <ul className="list-group mt-2">
         {gastos.map(gasto => (
           <Gasto 
@@ -12,7 +13,13 @@ const Listado = ({ gastos }) => (
           />
         ))}
       </ul>
-    </div>
+    </Fragment>
 );
+
+
+
+Listado.propTypes = {
+  gastos: PropTypes.array.isRequired,
+}
 
 export default Listado
